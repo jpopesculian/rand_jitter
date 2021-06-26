@@ -1,0 +1,11 @@
+[package]
+name = "rand_jitter"
+version = "0.1.0"
+edition = "2018"
+
+[features]
+default = []
+
+[dependencies]
+rand = { version = "0.8", default-features = false }
+euclid = { version = "0.22", optional = true }
