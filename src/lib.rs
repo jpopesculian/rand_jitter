@@ -20,6 +20,8 @@ pub trait RngJitter: rand::Rng {
     }
 }
 
+impl<T> RngJitter for T where T: rand::Rng {}
+
 #[cfg(feature = "euclid")]
 pub trait RngJitterEuclid: rand::Rng {
     fn jitter_point<T, S, U>(
@@ -55,3 +57,6 @@ pub trait RngJitterEuclid: rand::Rng {
         val + euclid::Angle::<T>::radians(radians)
     }
 }
+
+#[cfg(feature = "euclid")]
+impl<T> RngJitterEuclid for T where T: rand::Rng {}
