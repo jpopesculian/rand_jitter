@@ -56,6 +56,19 @@ pub trait RngJitterEuclid: rand::Rng {
         let radians = self.gen_range(amt);
         val + euclid::Angle::<T>::radians(radians)
     }
+
+    fn jitter_angle_factor<T, S>(&mut self, val: euclid::Angle<T>, amt: S) -> euclid::Angle<T>
+    where
+        S: rand::distributions::uniform::SampleRange<T>,
+        T: rand::distributions::uniform::SampleUniform
+            + PartialOrd
+            + core::ops::Add<Output = T>
+            + core::ops::Mul<Output = T>
+            + Clone,
+    {
+        let factor = self.gen_range(amt);
+        val.clone() * factor + val
+    }
 }
 
 #[cfg(feature = "euclid")]
